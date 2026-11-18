@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Um convite especial para Pamela ❤️</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Georgia, serif;
+    overflow-x: hidden;
+
+    background:
+        linear-gradient(rgba(75, 8, 35, 0.45), rgba(75, 8, 35, 0.55)),
+        url("ela.png") center center / cover fixed no-repeat;
+}
+
+/* CENÁRIO */
+
+.cena {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 15px 130px;
+}
+
+.convite {
+    width: 100%;
+    max-width: 470px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ENVELOPE */
+
+.envelope {
+    position: relative;
+    width: min(88vw, 370px);
+    height: 235px;
+    background: linear-gradient(145deg, #f9c9d9, #e98eae);
+    border: 3px solid #d9ad58;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px #3d071d88;
+    overflow: visible;
+    z-index: 2;
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9px;
+    background:
+        linear-gradient(35deg, transparent 49%, #d77b9c 50%, transparent 51%),
+        linear-gradient(-35deg, transparent 49%, #e6a0b7 50%, transparent 51%);
+}
+
+/* ABA DO ENVELOPE */
+
+.aba {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 135px;
+    background: linear-gradient(145deg, #f8d2df, #eaa0b8);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    border-top: 2px solid #e2b65f;
+    transform-origin: top center;
+    transition: transform 1s ease;
+    z-index: 4;
+}
+
+/* LACRE DE CERA */
+
+.lacre {
+    position: absolute;
+    z-index: 6;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    border: 4px solid #e8c36f;
+    background: radial-gradient(circle at 35% 30%, #ff6b78, #a90025 75%);
+    color: #ffe5a1;
+    font-size: 34px;
+    cursor: pointer;
+    box-shadow:
+        0 5px 15px #64001e88,
+        inset 0 0 10px #ffb0a8;
+    transition: transform 0.3s, opacity 0.4s;
+}
+
+.lacre:hover {
+    transform: translateX(-50%) scale(1.08);
+}
+
+.lacre:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 5px;
+}
+
+/* PEDAÇOS DO LACRE */
+
+.fragmento {
+    position: absolute;
+    display: block;
+    background: linear-gradient(145deg, #ff7881, #a90025);
+    border: 2px solid #e8c36f;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.fragmento.um {
+    width: 42px;
+    height: 40px;
+    top: 0;
+    left: 0;
+    border-radius: 70% 20% 30% 30%;
+}
+
+.fragmento.dois {
+    width: 40px;
+    height: 42px;
+    top: 0;
+    right: 0;
+    border-radius: 20% 70% 30% 30%;
+}
+
+.fragmento.tres {
+    width: 42px;
+    height: 40px;
+    bottom: 0;
+    left: 0;
+    border-radius: 30% 30% 20% 70%;
+}
+
+.fragmento.quatro {
+    width: 40px;
+    height: 42px;
+    bottom: 0;
+    right: 0;
+    border-radius: 30% 30% 70% 20%;
+}
+
+/* ANIMAÇÃO DA QUEBRA */
+
+.convite.quebrando .lacre {
+    opacity: 0;
+}
+
+.convite.quebrando .fragmento {
+    opacity: 1;
+    animation-duration: 0.85s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.convite.quebrando .fragmento.um {
+    animation-name: quebrarUm;
+}
+
+.convite.quebrando .fragmento.dois {
+    animation-name: quebrarDois;
+}
+
+.convite.quebrando .fragmento.tres {
+    animation-name: quebrarTres;
+}
+
+.convite.quebrando .fragmento.quatro {
+    animation-name: quebrarQuatro;
+}
+
+@keyframes quebrarUm {
+    to {
+        transform: translate(-65px, -65px) rotate(-130deg) scale(0.5);
+        opacity: 0;
+    }
+}
+
+@keyframes quebrarDois {
+    to {
+        transform: translate(65px, -65px) rotate(140deg) scale(0.5);
+        opacity: 0;
+    }
+}
+
+@keyframes quebrarTres {
+    to {
+        transform: translate(-65px, 65px) rotate(160deg) scale(0.5);
+        opacity: 0;
+    }
+}
+
+@keyframes quebrarQuatro {
+    to {
+        transform: translate(65px, 65px) rotate(-150deg) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* ABERTURA DO ENVELOPE */
+
+.convite.aberto .aba {
+    transform: rotateX(180deg);
+}
+
+.convite.aberto .envelope {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease 0.3s;
+}
+
+.instrucao {
+    color: #fff2d0;
+    font-size: 17px;
+    text-align: center;
+    margin-top: 22px;
+    text-shadow: 0 2px 5px #50001c;
+}
+
+.convite.aberto .instrucao {
+    display: none;
+}
+
+/* CARTA */
+
+.carta {
+    display: none;
+    width: 100%;
+    padding: 35px 25px;
+    text-align: center;
+    color: #8b3152;
+    border: 4px double #d4a64f;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fffaf4, #fff0f5);
+    box-shadow: 0 12px 40px #3b061d88;
+}
+
+.convite.aberto .carta {
+    display: block;
+    animation: revelar 1s ease both;
+}
+
+@keyframes revelar {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* DETALHES DO CARTÃO */
+
+.ornamento {
+    color: #c79b43;
+    font-size: 25px;
+    letter-spacing: 8px;
+    margin: 12px 0;
+}
+
+h1 {
+    color: #b52d60;
+    font-size: 28px;
+    margin: 20px 0;
+}
+
+h2 {
+    color: #b58a36;
+    font-size: 20px;
+    font-weight: normal;
+    margin: 15px 0;
+}
+
+.mensagem {
+    font-size: 17px;
+    line-height: 1.8;
+    margin: 18px 0;
+    color: #87405a;
+}
+
+.detalhe {
+    color: #c69b45;
+    font-size: 27px;
+    margin: 18px 0;
+}
+
+.assinatura {
+    color: #b52d60;
+    font-size: 20px;
+    font-style: italic;
+    margin: 25px 0;
+}
+
+/* BOTÕES */
+
+.botao {
+    border: none;
+    padding: 13px 22px;
+    margin: 7px 4px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.botao:hover {
+    transform: scale(1.06);
+}
+
+.sim {
+    background: linear-gradient(135deg, #d62d68, #a80d43);
+    color: white;
+    box-shadow: 0 4px 12px #d62d6844;
+}
+
+.nao {
+    background: #f2e7e9;
+    color: #8b5267;
+}
+
+.guardar {
+    background: linear-gradient(135deg, #d8b35c, #a77a25);
+    color: white;
+}
+
+#resposta {
+    margin-top: 20px;
+    font-size: 21px;
+    line-height: 1.6;
+    color: #b52d60;
+    font-weight: bold;
+}
+
+/* ROSA DECORATIVA */
+
+.rosa {
+    position: fixed;
+    bottom: 12px;
+    right: 18px;
+    font-size: 65px;
+    filter: drop-shadow(0 0 12px #ffb4c8);
+    animation: balancar 3s infinite alternate;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes balancar {
+    from { transform: rotate(-7deg); }
+    to { transform: rotate(7deg); }
+}
+
+/* GATINHO */
+
+.gatinho {
+    position: fixed;
+    bottom: 12px;
+    left: 12px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #e5c16c;
+    box-shadow: 0 5px 20px #0005;
+    z-index: 1;
+}
+
+/* CORAÇÕES */
+
+.coracao {
+    position: fixed;
+    bottom: -40px;
+    font-size: 23px;
+    animation: subir 6s linear forwards;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes subir {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* CELULAR */
+
+@media (max-width: 500px) {
+    .cena {
+        align-items: flex-start;
+        padding-top: 55px;
+        padding-bottom: 130px;
+    }
+
+    .carta {
+        padding: 27px 17px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .mensagem {
+        font-size: 15px;
+    }
+
+    .gatinho {
+        width: 65px;
+        height: 65px;
+    }
+
+    .rosa {
+        font-size: 48px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<main class="cena">
+
+    <div class="convite" id="convite">
+
+        <!-- ENVELOPE -->
+
+        <div class="envelope">
+
+            <div class="aba"></div>
+
+            <!-- LACRE CLICÁVEL -->
+
+            <button
+                class="lacre"
+                id="lacre"
+                onclick="abrirConvite()"
+                aria-label="Quebrar o lacre e abrir o convite">
+
+                ♥
+            </button>
+
+            <!-- FRAGMENTOS DO LACRE -->
+
+            <span class="fragmento um"></span>
+            <span class="fragmento dois"></span>
+            <span class="fragmento tres"></span>
+            <span class="fragmento quatro"></span>
+
+        </div>
+
+        <p class="instrucao">
+            💌 Um convite especial espera por você...
+            <br>
+            Clique no lacre para abrir 🌹
+        </p>
+
+        <!-- PEDIDO DE NAMORO -->
+
+        <section class="carta">
+
+            <div class="ornamento">✦ ❀ ✦</div>
+
+            <h2>Um convite feito com carinho</h2>
+
+            <div class="detalhe">🌹</div>
+
+            <h1>Pamela, minha Programadora ❤️</h1>
+
+            <p class="mensagem">
+                Se eu pudesse escolher um presente especial,
+                escolheria a oportunidade de conhecer cada vez
+                mais você, compartilhar momentos e construir
+                lindas lembranças ao seu lado.
+            </p>
+
+            <p class="mensagem">
+                Preparei esta surpresa porque você é uma pessoa
+                muito especial para mim.
+            </p>
+
+            <p class="mensagem">
+                Quero estar presente nos seus dias,
+                compartilhar sorrisos e viver momentos
+                que possamos guardar com carinho.
+            </p>
+
+            <div class="detalhe">✧ ♡ ✧</div>
+
+            <h1>Você aceita namorar comigo?</h1>
+
+            <div class="detalhe">🌹</div>
+
+            <button class="botao sim" onclick="aceitou()">
+                SIM, EU ACEITO! ❤️
+            </button>
+
+            <button class="botao nao" onclick="recusou()">
+                NÃO 🙈
+            </button>
+
+            <div id="resposta"></div>
+
+            <div class="assinatura">
+                Com carinho, Gustavo.
+                <br>
+                😻💕❤️🐱💗
+            </div>
+
+            <div class="ornamento">✦ ❀ ✦</div>
+
+            <button class="botao guardar" onclick="fecharConvite()">
+                💌 Guardar convite
+            </button>
+
+        </section>
+
+    </div>
+
+</main>
+
+<!-- DECORAÇÕES -->
+
+<div class="rosa">🌹</div>
+
+<img
+    class="gatinho"
+    src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=500&auto=format&fit=crop&q=80"
+    alt="Gatinho fofo"
+>
+
+<script>
+
+// ABRIR E QUEBRAR O LACRE
+
+function abrirConvite() {
+
+    const convite = document.getElementById("convite");
+
+    if (convite.classList.contains("quebrando") ||
+        convite.classList.contains("aberto")) {
+        return;
+    }
+
+    // Começa a quebrar o lacre
+    convite.classList.add("quebrando");
+
+    // Depois da quebra, abre o envelope
+    setTimeout(() => {
+
+        convite.classList.add("aberto");
+
+        convite.classList.remove("quebrando");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }, 900);
+}
+
+// GUARDAR E FECHAR O CONVITE
+
+function fecharConvite() {
+
+    const convite = document.getElementById("convite");
+
+    convite.classList.remove("aberto");
+    convite.classList.remove("quebrando");
+
+    document.getElementById("resposta").innerHTML = "";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+// RESPOSTA SIM
+
+function aceitou() {
+
+    document.getElementById("resposta").innerHTML =
+        "EU TE AMO! MINHA PROGAMADORA DO RIBEIRÃO DO LIPA! ❤️💍🌹😻";
+
+}
+
+// RESPOSTA NÃO
+
+function recusou() {
+
+    document.getElementById("resposta").innerHTML =
+        "Entendo. obrigado pela atenção ao meu pedido😔🌟";
+
+}
+
+// CORAÇÕES FLUTUANTES
+
+function criarCoracao() {
+
+    const coracao = document.createElement("div");
+
+    coracao.className = "coracao";
+
+    coracao.innerHTML =
+        Math.random() > 0.5 ? "❤️" : "💕";
+
+    coracao.style.left = Math.random() * 100 + "vw";
+
+    coracao.style.animationDuration =
+        (Math.random() * 3 + 4) + "s";
+
+    document.body.appendChild(coracao);
+
+    setTimeout(() => {
+        coracao.remove();
+    }, 7000);
+
+}
+
+setInterval(criarCoracao, 700);
+
+</script>
+
+</body>
+</html>
