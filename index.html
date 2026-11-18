@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -22,13 +22,60 @@ body {
     overflow-x: hidden;
 
     background:
-        linear-gradient(rgba(75, 8, 35, 0.45), rgba(75, 8, 35, 0.55)),
+        linear-gradient(rgba(75, 8, 35, 0.43), rgba(75, 8, 35, 0.55)),
         url("ela.png") center center / cover fixed no-repeat;
+}
+
+/* FLORES NAS LATERAIS */
+
+.floral {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.95;
+}
+
+.floral.esquerda {
+    left: 0;
+}
+
+.floral.direita {
+    right: 0;
+}
+
+.floral span {
+    display: block;
+    font-size: 35px;
+    filter: drop-shadow(0 3px 5px #39051d88);
+    animation: florescer 4s ease-in-out infinite alternate;
+}
+
+.floral span:nth-child(even) {
+    animation-delay: 1.5s;
+    font-size: 27px;
+}
+
+@keyframes florescer {
+    from {
+        transform: rotate(-9deg) scale(0.95);
+    }
+    to {
+        transform: rotate(9deg) scale(1.08);
+    }
 }
 
 /* CENÁRIO */
 
 .cena {
+    position: relative;
+    z-index: 2;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -44,7 +91,7 @@ body {
     align-items: center;
 }
 
-/* ENVELOPE */
+/* ENVELOPE ORIGINAL */
 
 .envelope {
     position: relative;
@@ -115,7 +162,7 @@ body {
     outline-offset: 5px;
 }
 
-/* PEDAÇOS DO LACRE */
+/* FRAGMENTOS DO LACRE */
 
 .fragmento {
     position: absolute;
@@ -158,7 +205,7 @@ body {
     border-radius: 30% 30% 70% 20%;
 }
 
-/* ANIMAÇÃO DA QUEBRA */
+/* QUEBRA DO LACRE */
 
 .convite.quebrando .lacre {
     opacity: 0;
@@ -215,7 +262,7 @@ body {
     }
 }
 
-/* ABERTURA DO ENVELOPE */
+/* ABERTURA */
 
 .convite.aberto .aba {
     transform: rotateX(180deg);
@@ -239,18 +286,36 @@ body {
     display: none;
 }
 
-/* CARTA */
+/* CARTA FLORAL */
 
 .carta {
+    position: relative;
     display: none;
     width: 100%;
-    padding: 35px 25px;
+    padding: 38px 25px;
     text-align: center;
     color: #8b3152;
-    border: 4px double #d4a64f;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #fffaf4, #fff0f5);
-    box-shadow: 0 12px 40px #3b061d88;
+    border: 5px double #d4a64f;
+    border-radius: 14px;
+
+    background:
+        radial-gradient(circle at top left, #fce3e8 0%, transparent 32%),
+        radial-gradient(circle at bottom right, #fce3e8 0%, transparent 32%),
+        linear-gradient(135deg, #fffaf4, #fff0f5);
+
+    box-shadow:
+        0 12px 40px #3b061d88,
+        inset 0 0 20px #d9ad5822;
+}
+
+.carta::before,
+.carta::after {
+    content: "❀  🌿  ❀";
+    display: block;
+    color: #bd8c3c;
+    font-size: 23px;
+    letter-spacing: 5px;
+    padding: 7px;
 }
 
 .convite.aberto .carta {
@@ -270,7 +335,7 @@ body {
     }
 }
 
-/* DETALHES DO CARTÃO */
+/* ORNAMENTOS */
 
 .ornamento {
     color: #c79b43;
@@ -283,6 +348,7 @@ h1 {
     color: #b52d60;
     font-size: 28px;
     margin: 20px 0;
+    text-shadow: 0 2px 2px #dca4b044;
 }
 
 h2 {
@@ -361,7 +427,7 @@ h2 {
     font-size: 65px;
     filter: drop-shadow(0 0 12px #ffb4c8);
     animation: balancar 3s infinite alternate;
-    z-index: 1;
+    z-index: 3;
     pointer-events: none;
 }
 
@@ -382,10 +448,10 @@ h2 {
     object-fit: cover;
     border: 4px solid #e5c16c;
     box-shadow: 0 5px 20px #0005;
-    z-index: 1;
+    z-index: 3;
 }
 
-/* CORAÇÕES */
+/* CORAÇÕES FLUTUANTES */
 
 .coracao {
     position: fixed;
@@ -406,6 +472,7 @@ h2 {
 /* CELULAR */
 
 @media (max-width: 500px) {
+
     .cena {
         align-items: flex-start;
         padding-top: 55px;
@@ -432,6 +499,33 @@ h2 {
     .rosa {
         font-size: 48px;
     }
+
+    .floral {
+        width: 48px;
+        opacity: 0.8;
+    }
+
+    .floral span {
+        font-size: 22px;
+    }
+
+    .floral span:nth-child(even) {
+        font-size: 18px;
+    }
+
+    .convite {
+        max-width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 </style>
@@ -439,28 +533,41 @@ h2 {
 
 <body>
 
+<!-- DECORAÇÃO FLORAL LATERAL -->
+
+<div class="floral esquerda" aria-hidden="true">
+    <span>🌹</span>
+    <span>🌿</span>
+    <span>🌸</span>
+    <span>🍃</span>
+    <span>🌹</span>
+</div>
+
+<div class="floral direita" aria-hidden="true">
+    <span>🌸</span>
+    <span>🍃</span>
+    <span>🌹</span>
+    <span>🌿</span>
+    <span>🌸</span>
+</div>
+
 <main class="cena">
 
     <div class="convite" id="convite">
 
-        <!-- ENVELOPE -->
+        <!-- ENVELOPE ORIGINAL -->
 
         <div class="envelope">
 
             <div class="aba"></div>
-
-            <!-- LACRE CLICÁVEL -->
 
             <button
                 class="lacre"
                 id="lacre"
                 onclick="abrirConvite()"
                 aria-label="Quebrar o lacre e abrir o convite">
-
                 ♥
             </button>
-
-            <!-- FRAGMENTOS DO LACRE -->
 
             <span class="fragmento um"></span>
             <span class="fragmento dois"></span>
@@ -475,7 +582,7 @@ h2 {
             Clique no lacre para abrir 🌹
         </p>
 
-        <!-- PEDIDO DE NAMORO -->
+        <!-- CARTA DE AMOR -->
 
         <section class="carta">
 
@@ -539,7 +646,7 @@ h2 {
 
 </main>
 
-<!-- DECORAÇÕES -->
+<!-- DECORAÇÕES ORIGINAIS -->
 
 <div class="rosa">🌹</div>
 
@@ -562,10 +669,8 @@ function abrirConvite() {
         return;
     }
 
-    // Começa a quebrar o lacre
     convite.classList.add("quebrando");
 
-    // Depois da quebra, abre o envelope
     setTimeout(() => {
 
         convite.classList.add("aberto");
@@ -602,7 +707,7 @@ function fecharConvite() {
 function aceitou() {
 
     document.getElementById("resposta").innerHTML =
-        "EU TE AMO! MINHA PROGAMADORA DO RIBEIRÃO DO LIPA! ❤️💍🌹😻";
+        "EU TE AMO! MINHA PROGRAMADORA DO RIBEIRÃO DO LIPA! ❤️💍🌹😻";
 
 }
 
@@ -611,7 +716,7 @@ function aceitou() {
 function recusou() {
 
     document.getElementById("resposta").innerHTML =
-        "Entendo. obrigado pela atenção ao meu pedido😔🌟";
+        "Entendo. Obrigado pela atenção ao meu pedido. 😔🌟";
 
 }
 
@@ -645,3 +750,4 @@ setInterval(criarCoracao, 700);
 
 </body>
 </html>
+```
